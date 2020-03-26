@@ -9,7 +9,8 @@
       <th scope="col">#</th>
       <th scope="col">Title</th>
       <th scope="col">Describtion</th>
-      <th scope="col">User</th>
+      <th scope="col">Posted By</th>
+      <th scope="col">Created At</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -19,7 +20,8 @@
         <th scope="row">{{$post->id}}</th>
         <td>{{$post->title}}</td>
         <td>{{$post->description}}</td>
-        <td>{{$post->user_id?$post->user_id:"not exist"}}</td>
+        <td>{{$postUser[$post->id]}}</td>
+        <td>{{$post->created_at->toDateString()}}</td>
         <td>
             <a class="btn btn-success btn-sm" href="{{route('posts.show', [ 'post' => $post->id ])}}">Show</a>
             <a class="btn btn-warning btn-sm" href="{{route('posts.edit', [ 'post' => $post->id ])}}">Update</a>

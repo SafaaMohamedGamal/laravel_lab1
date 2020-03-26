@@ -10,6 +10,17 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+        $users = User::all();
+        $postUser = [];
+        // dd($posts[0]->created_at->format('m/d/y'));
+        foreach ($posts as $post) {
+            foreach ($users as $user) {
+                if ($post->user_id === $user->id) {
+                    $postUser[$post->id] =$user->name;
+                }
+            }
+        }
+        // dd($postUser);
         // $posts=[
         //     [
         //         'id' => '22',
@@ -28,7 +39,8 @@ class PostController extends Controller
         //     ]
         //     ];
         return view('index',[
-            "posts" => $posts
+            "posts" => $posts,
+            "postUser" => $postUser
         ]);
     }
 
