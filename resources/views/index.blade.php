@@ -3,12 +3,13 @@
 
 @section('content')
 <a class="btn btn-info btn-lg btn-block mb-5" href="{{route('posts.create')}}">Add Post</a>
-<table class="table table-dark">
+<table class="table table-dark text-center">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">First</th>
       <th scope="col">Describtion</th>
+      <th scope="col">User</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -18,10 +19,11 @@
         <th scope="row">{{$post->id}}</th>
         <td>{{$post->title}}</td>
         <td>{{$post->description}}</td>
+        <td>{{$post->user_id?$post->user_id:"not exist"}}</td>
         <td>
           <a class="btn btn-success btn-sm" href="{{route('posts.show', [ 'post' => $post->id ])}}">Show</a>
-          <a class="btn btn-success btn-sm" href="">Update</a>
-          <a class="btn btn-success btn-sm" href="">Delete</a>
+          <a class="btn btn-warning btn-sm" href="">Update</a>
+          <a class="btn btn-danger btn-sm" href="">Delete</a>
         </td>
         </tr>
       @endforeach
