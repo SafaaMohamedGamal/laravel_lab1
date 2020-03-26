@@ -1,21 +1,23 @@
 @extends('layout.app')
 
 @section('content')
-<form>
+<form  method="POST" action="{{route('posts.store')}}">
+    @csrf
   <div class="form-group">
-    <label for="exampleFormControlInput1">Email address</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    <label for="exampleFormControlInput1">Title</label>
+    <input type="text" class="form-control" name="title">
   </div>
   <div class="form-group">
-    <label for="exampleFormControlSelect1">Example select</label>
-    <select class="form-control" id="exampleFormControlSelect1">
+    <label for="exampleFormControlSelect1">User</label>
+    <select class="form-control" name="user">
       <option>1</option>
       <option>2</option>
     </select>
   </div>
   <div class="form-group">
-    <label for="exampleFormControlTextarea1">Example textarea</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <label for="exampleFormControlTextarea1">Description</label>
+    <textarea class="form-control" name="description" rows="3"></textarea>
   </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @endsection

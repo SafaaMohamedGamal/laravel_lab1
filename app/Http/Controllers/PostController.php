@@ -45,4 +45,14 @@ class PostController extends Controller
     {
         return view('create');
     }
+
+    public function store()
+    {
+        $request = request();
+        Post::create([
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
+        return redirect()->route('posts.index');
+    }
 }
