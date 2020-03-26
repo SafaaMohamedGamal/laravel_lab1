@@ -3,19 +3,30 @@
 
 @section('content')
 
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h2 class="card-title">Title</h2>
-        <p class="card-text">{{$post->title}}</p>
-    </div>
-    </div>
+<div class="card">
+  <div class="card-header">
+    Post Info
+  </div>
+  <div class="card-body">
+    <strong class="card-title">Title: </strong><p>{{$post->title}}</p>
+    <strong class="card-title">Description: </strong><p>{{$post->description}}</p>
+  </div>
+</div>
 
-    <div class="card mt-4" style="width: 18rem;">
-    <div class="card-body">
-        <h2 class="card-title">Description</h2>
-        <p class="card-text">{{$post->description}}</p>
-    </div>
-    </div>
+
+<div class="card mt-5">
+  <div class="card-header">
+    Post Creator Info
+  </div>
+  <div class="card-body">
+    <strong class="card-title">Name: </strong><p>{{$user->name}}</p>
+    <strong class="card-title">Email: </strong><p>{{$user->email}}</p>
+    <strong class="card-title">Created At: </strong><p>{{$post->created_at}}</p>
+  </div>
+</div>
+
+
+
 
 @endsection
 
