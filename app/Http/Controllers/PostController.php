@@ -60,4 +60,31 @@ class PostController extends Controller
         ]);
         return redirect()->route('posts.index');
     }
+
+    public function edit()
+    {
+        $request = request();
+        $postId = $request->post;
+        $post = Post::find($postId);
+        $users = User::all();
+        return view('edit',[
+            "post" => $post,
+            'users' => $users
+        ]);
+    }
+
+    public function update()
+    {
+        $request = request();
+        // dd($request->post);
+        Post::where("id", $request->post)->update(
+                [
+                    'title' => $request->title, 
+                    'description' => $request->description, 
+                    'user_id' => $request->user
+                ]);
+
+        return redirect()->route('posts.index');
+    }
+
 }
