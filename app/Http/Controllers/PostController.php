@@ -13,14 +13,7 @@ class PostController extends Controller
         $posts = Post::paginate(2);
         $users = User::all();
         $postUser = [];
-        // dd($posts[0]->created_at->format('m/d/y'));
-        foreach ($posts as $post) {
-            foreach ($users as $user) {
-                if ($post->user_id === $user->id) {
-                    $postUser[$post->id] =$user->name;
-                }
-            }
-        }
+        
         // dd($postUser);
         // $posts=[
         //     [
@@ -69,6 +62,10 @@ class PostController extends Controller
     public function store()
     {
         $request = request();
+        $validatedData = $request->validate([
+            'title' => 'required|min:4',
+            'description' => 'required',
+        ]);
         Post::create([
             'title' => $request->title,
             'description' => $request->description,

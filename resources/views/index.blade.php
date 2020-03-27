@@ -20,7 +20,7 @@
         <th scope="row">{{$post->id}}</th>
         <td>{{$post->title}}</td>
         <td>{{$post->description}}</td>
-        <td>{{$postUser[$post->id]}}</td>
+        <td>{{$post->user->name}}</td>
         <td>{{$post->created_at->toDateString()}}</td>
         <td>
             <a class="btn btn-success btn-sm" href="{{route('posts.show', [ 'post' => $post->id ])}}">Show</a>
