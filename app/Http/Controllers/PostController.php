@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
@@ -59,13 +61,13 @@ class PostController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(StorePostRequest $request)
     {
-        $request = request();
-        $validatedData = $request->validate([
-            'title' => 'required|min:4',
-            'description' => 'required',
-        ]);
+        // $request = request();
+        // $validatedData = $request->validate([
+        //     'title' => 'required|min:4',
+        //     'description' => 'required',
+        // ]);
         Post::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -86,9 +88,9 @@ class PostController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(UpdatePostRequest $request)
     {
-        $request = request();
+        // $request = request();
         // dd($request->post);
         Post::where("id", $request->post)->update(
                 [

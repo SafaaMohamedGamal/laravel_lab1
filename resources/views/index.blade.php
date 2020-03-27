@@ -1,5 +1,5 @@
 
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('content')
 <a class="btn btn-info btn-lg btn-block mb-5" href="{{route('posts.create')}}">Add Post</a>
