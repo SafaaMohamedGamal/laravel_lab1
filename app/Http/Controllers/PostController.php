@@ -16,24 +16,6 @@ class PostController extends Controller
         $users = User::all();
         $postUser = [];
         
-        // dd($postUser);
-        // $posts=[
-        //     [
-        //         'id' => '22',
-        //         'title' => 'first post',
-        //         'created_at' => '2020-05-02',
-        //     ],
-        //     [
-        //         'id' => '24',
-        //         'title' => 'second post',
-        //         'created_at' => '2018-05-02',
-        //     ],
-        //     [
-        //         'id' => '26',
-        //         'title' => 'third post',
-        //         'created_at' => '2019-05-02',
-        //     ]
-        //     ];
         return view('index',[
             "posts" => $posts,
             "postUser" => $postUser
@@ -63,11 +45,6 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        // $request = request();
-        // $validatedData = $request->validate([
-        //     'title' => 'required|min:4',
-        //     'description' => 'required',
-        // ]);
         Post::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -90,14 +67,13 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request)
     {
-        // $request = request();
-        // dd($request->post);
-        Post::where("id", $request->post)->update(
-                [
-                    'title' => $request->title, 
-                    'description' => $request->description, 
-                    'user_id' => $request->user
-                ]);
+        $post = Post::find($request->post);
+        $post->slug = null;
+        $post->update([
+            'title' => $request->title, 
+        'description' => $request->description, 
+        'user_id' => $request->user
+        ]);
 
         return redirect()->route('posts.index');
     }
