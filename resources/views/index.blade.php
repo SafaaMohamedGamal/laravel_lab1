@@ -8,6 +8,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Title</th>
+      <th scope="col">Slug</th>
       <th scope="col">Describtion</th>
       <th scope="col">Posted By</th>
       <th scope="col">Created At</th>
@@ -19,6 +20,7 @@
         <tr>
         <th scope="row">{{$post->id}}</th>
         <td>{{$post->title}}</td>
+        <td>{{$post->slug ? $post->slug : "not exist"}}</td>
         <td>{{$post->description}}</td>
         <td>{{$post->user->name}}</td>
         <td>{{$post->created_at->toDateString()}}</td>
