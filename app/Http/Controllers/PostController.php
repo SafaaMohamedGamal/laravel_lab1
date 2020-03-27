@@ -9,7 +9,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Post::paginate(2);
         $users = User::all();
         $postUser = [];
         // dd($posts[0]->created_at->format('m/d/y'));
@@ -50,6 +51,7 @@ class PostController extends Controller
         $postId = $request->post;
         $post = Post::find($postId);
         $user = User::find($post->user_id);
+        // dd($post->created_at->format('l jS \\of F Y h:i:s A'));
         return view('show', [
             "post" => $post,
             "user" => $user
