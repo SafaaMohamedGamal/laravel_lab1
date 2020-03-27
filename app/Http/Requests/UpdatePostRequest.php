@@ -31,6 +31,7 @@ class UpdatePostRequest extends FormRequest
                 'min:3'
             ],
             'description' => 'required|min:10',
+            'user' => 'exists:users,id'
         ];
     }
 
