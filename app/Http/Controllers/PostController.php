@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\User;
+
 class PostController extends Controller
 {
     public function index()
@@ -14,11 +15,8 @@ class PostController extends Controller
         // $posts = Post::all();
         $posts = Post::paginate(4);
         $users = User::all();
-        $postUser = [];
-        
         return view('index',[
-            "posts" => $posts,
-            "postUser" => $postUser
+            "posts" => $posts
         ]);
     }
 
@@ -45,10 +43,16 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        // dd($path, $request->file('image')->getRealPath());
+        $post = Post::find($request->post);
+        $path = "";
+        $this->getImageUrl($path, $request);
+        
         Post::create([
             'title' => $request->title,
             'description' => $request->description,
-            'user_id' => $request->user
+            'user_id' => $request->user,
+            'image' => $path
         ]);
         return redirect()->route('posts.index');
     }
@@ -68,11 +72,16 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request)
     {
         $post = Post::find($request->post);
+        Storage::delete("public/".$post->image);
+        $path = "";
+        $this->getImageUrl($path, $request);
+
         $post->slug = null;
         $post->update([
             'title' => $request->title, 
         'description' => $request->description, 
-        'user_id' => $request->user
+        'user_id' => $request->user,
+        'image' => $path
         ]);
 
         return redirect()->route('posts.index');
@@ -82,8 +91,21 @@ class PostController extends Controller
     {
         $request = request();
         $postId = $request->post;
-        Post::where("id", $postId)->delete();
+        $post = Post::find($postId);
 
+        Storage::delete("public/".$post->image);
+        Post::where("id", $postId)->delete();
         return redirect()->route('posts.index');
+    }
+
+    private function getImageUrl(&$path, $request)
+    {
+        if($request->file('image'))
+        {
+            $path = $request->file('image')->store('public/images');
+            $path = explode("/", $path);
+            array_shift($path);
+            $path = implode("/", $path);
+        }
     }
 }

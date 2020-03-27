@@ -11,7 +11,7 @@
     </div>
 @endif
 
-<form  method="POST" action="{{route('posts.update', [ 'post' => $post->id ])}}">
+<form  method="POST" action="{{route('posts.update', [ 'post' => $post->id ])}}"  enctype="multipart/form-data">
     @csrf
     @method('PUT')
   <div class="form-group">
@@ -30,6 +30,14 @@
     <label for="exampleFormControlTextarea1">Description</label>
     <textarea class="form-control" name="description" rows="3">{{$post->description}}</textarea>
   </div>
+
+
+  <div class="">
+    <label class="" for="inputGroupFile02"><strong>Choose file</strong></label>
+    <input type="file" name="image" class="" id="inputGroupFile02">
+  </div>
+
+
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
 @endsection

@@ -31,7 +31,8 @@ class UpdatePostRequest extends FormRequest
                 'min:3'
             ],
             'description' => 'required|min:10',
-            'user' => 'exists:users,id'
+            'user' => 'exists:users,id',
+            // 'image' => 'mimes:jpg,png',
         ];
     }
 
@@ -40,7 +41,7 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'title.required' => 'A title is required',
-            'description.required'  => 'A message is required',
+            'description.required'  => 'A description is required',
         ];
 
     }

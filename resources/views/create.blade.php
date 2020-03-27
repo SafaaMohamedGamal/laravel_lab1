@@ -11,7 +11,7 @@
     </div>
 @endif
 
-<form  method="POST" action="{{route('posts.store')}}">
+<form  method="POST" action="{{route('posts.store')}}" enctype="multipart/form-data">
     @csrf
   <div class="form-group">
     <label for="exampleFormControlInput1">Title</label>
@@ -29,6 +29,17 @@
     <label for="exampleFormControlTextarea1">Description</label>
     <textarea class="form-control" name="description" rows="3"></textarea>
   </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+
+  <div class="">
+    <label class="" for="inputGroupFile02"><strong>Choose file</strong></label>
+    <input type="file" name="image" class="" id="inputGroupFile02">
+  </div>
+
+
+    <button type="submit" class="btn btn-primary mt-5">Submit</button>
+
+
 </form>
 @endsection
