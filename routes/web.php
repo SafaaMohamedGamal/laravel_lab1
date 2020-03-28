@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/posts/{post}/comments', 'PostCommentController@index');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/posts/create', 'PostController@create') -> name('posts.create');

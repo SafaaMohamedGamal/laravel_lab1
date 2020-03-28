@@ -43,15 +43,13 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        // dd($path, $request->file('image')->getRealPath());
-        $post = Post::find($request->post);
         $path = "";
         $this->getImageUrl($path, $request);
-        
+        $inputData = $request->only(['title', 'description', 'user']);
         Post::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => $request->user,
+            'title' => $inputData['title'],
+            'description' => $inputData['description'],
+            'user_id' => $inputData['user'],
             'image' => $path
         ]);
         return redirect()->route('posts.index');
@@ -71,18 +69,21 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request)
     {
+        $path = "";
+        $inputData = $request->only(['title', 'description', 'user']);
+
         $post = Post::find($request->post);
         Storage::delete("public/".$post->image);
-        $path = "";
         $this->getImageUrl($path, $request);
 
         $post->slug = null;
         $post->update([
-            'title' => $request->title, 
-        'description' => $request->description, 
-        'user_id' => $request->user,
-        'image' => $path
+            'title' => $inputData['title'],
+            'description' => $inputData['description'],
+            'user_id' => $inputData['user'],
+            'image' => $path
         ]);
+
 
         return redirect()->route('posts.index');
     }
@@ -94,10 +95,12 @@ class PostController extends Controller
         $post = Post::find($postId);
 
         Storage::delete("public/".$post->image);
-        Post::where("id", $postId)->delete();
+        $post->delete();
         return redirect()->route('posts.index');
     }
 
+
+    
     private function getImageUrl(&$path, $request)
     {
         if($request->file('image'))
